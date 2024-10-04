@@ -6,4 +6,5 @@ It is currently capable of: <br/>
 - Somewhat secure account access, Accounts can only be accessed with their account number
 - Deposit funds
 - Withdraw funds
-- Has several pre-generated bank accounts in JSON_Data
+- Has several pre-generated bank accounts in JSON_Data, the code to read/write
+  JSON may have to be updated for your file location
