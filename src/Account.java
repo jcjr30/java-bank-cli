@@ -1,5 +1,5 @@
-import java.text.NumberFormat;
-import java.util.HashMap;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 import java.text.DecimalFormat;
 
@@ -13,15 +13,16 @@ public class Account {
         //Creates dF object to format account numbers
         DecimalFormat dF = new DecimalFormat("#########");
         //Creates Random object to create account numbers
-        Random acct = new Random();
+        Random rand = new Random();
+
 
         //Generates random 10 digit number, repeats until unique
         do {
-            acctNum = acct.nextInt(999999999);
+            acctNum = Integer.parseInt(dF.format(rand.nextInt(999999999)));
         }
-        while (Tracker.accts.containsValue(acctNum));
+        while (Tracker.accts.containsKey(acctNum));
 
-        if (!Tracker.accts.containsValue(acctNum))   {
+        if (!Tracker.accts.containsKey(acctNum))   {
             return acctNum;
         }
             return 1;
@@ -29,7 +30,7 @@ public class Account {
 
     //Generates a new customers' acct#, gives them a balance based
     //on starting deposit, and returns an array with said info + name
-    public String[] custGen(String name, String balance)   {
+    public String[] custGen(String name, String balance) throws IOException {
         this.name = name;
         this.balance = balance;
         Integer acctNum = acctNum();
@@ -39,8 +40,8 @@ public class Account {
         arr[0] = name;
         arr[1] = acctNum.toString();
         arr[2] = balance;
-
         Tracker.accts.put(acctNum,arr);
+        Tracker.obMap.writeValue(new File("C:\\Users\\Josh\\.IntelliJ\\bank\\JSON_Data\\account.json"), Tracker.accts);
 
         return arr;
 
